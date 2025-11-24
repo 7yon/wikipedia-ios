@@ -2295,8 +2295,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     @objc func showCoordinate(latitude: Double, longitude: Double) {
         let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
         guard CLLocationCoordinate2DIsValid(coordinate) else {
-            // FIXME: - Localise alert
-            wmf_showAlertWithMessage("Incorrect coordinates")
+            wmf_showAlertWithMessage(WMFLocalizedString("places-inavalid-coordinates", value: "Coordinates are not valid", comment: "Provided coordinates are not valid"))
             return
         }
         

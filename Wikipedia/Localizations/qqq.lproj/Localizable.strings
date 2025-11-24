@@ -975,6 +975,7 @@
 "places-filter-top-articles" = "Title of places search filter that searches top articles";
 "places-filter-top-articles-count" = "Describes how many top articles are found in the top articles filter - $1 is replaced with the number of articles";
 "places-filter-top-read-articles" = "Title for action that allows users to filter top read articles";
+"places-inavalid-coordinates" = "Provided coordinates are not valid";
 "places-list-title'" = "Button that switches the display mode to the List view on the Places tab.";
 "places-location-enabled" = "Title for button informing user that they successfully enabled location services";
 "places-map-title" = "Button that switches the display mode to the Map view on the Places tab.";

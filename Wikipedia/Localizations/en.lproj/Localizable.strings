@@ -975,6 +975,7 @@
 "places-filter-top-articles" = "Top read";
 "places-filter-top-articles-count" = "{{PLURAL:$1|$1 article|$1 articles}}";
 "places-filter-top-read-articles" = "Top read articles";
+"places-inavalid-coordinates" = "Coordinates are not valid";
 "places-list-title'" = "List";
 "places-location-enabled" = "Location enabled";
 "places-map-title" = "Map";
