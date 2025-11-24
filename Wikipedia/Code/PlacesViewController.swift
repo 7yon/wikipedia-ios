@@ -2291,6 +2291,18 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         }
         zoomAndPanMapView(toLocation: userLocation)
     }
+    
+    @objc func showCoordinate(latitude: Double, longitude: Double) {
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        guard CLLocationCoordinate2DIsValid(coordinate) else {
+            // FIXME: - Localise alert
+            wmf_showAlertWithMessage("Incorrect coordinates")
+            return
+        }
+        
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+        zoomAndPanMapView(toLocation: location)
+    }
 
     // MARK: - NSFetchedResultsControllerDelegate
 
