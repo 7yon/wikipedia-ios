@@ -54,6 +54,7 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     fileprivate var previouslySelectedArticlePlaceIdentifier: Int?
     fileprivate var didYouMeanSearch: PlaceSearch?
     fileprivate var searching: Bool = false
+    private var pendingCoordinate: CLLocationCoordinate2D?
     // SINGLETONTODO
     fileprivate let imageController = MWKDataStore.shared().cacheController.imageCache
 
@@ -114,7 +115,6 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
     }()
 
     override func viewDidLoad() {
-
         listViewController = ArticleLocationCollectionViewController(articleURLs: [], dataStore: dataStore, contentGroup: nil, theme: theme, articleSource: .places)
         listViewController.needsConfigNavBar = false
         addChild(listViewController)
@@ -185,6 +185,11 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
         overlaySliderPanGestureRecognizer = panGR
 
         self.view.layoutIfNeeded()
+        
+        if let pendingCoordinate = pendingCoordinate {
+            showCoordinate(latitude: pendingCoordinate.latitude, longitude: pendingCoordinate.longitude)
+            self.pendingCoordinate = nil
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -2290,6 +2295,23 @@ class PlacesViewController: ArticleLocationCollectionViewController, UISearchBar
             return
         }
         zoomAndPanMapView(toLocation: userLocation)
+    }
+    
+    @objc func showCoordinate(latitude: Double, longitude: Double) {
+        guard isViewLoaded else {
+            pendingCoordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+            return
+        }
+
+        let coordinate = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        guard CLLocationCoordinate2DIsValid(coordinate) else {
+            wmf_showAlertWithMessage(WMFLocalizedString("places-inavalid-coordinates", value: "Coordinates are not valid", comment: "Provided coordinates are not valid"))
+            return
+        }
+        
+        let location = CLLocation(latitude: coordinate.latitude, longitude: coordinate.longitude)
+
+        zoomAndPanMapView(toLocation: location)
     }
 
     // MARK: - NSFetchedResultsControllerDelegate
